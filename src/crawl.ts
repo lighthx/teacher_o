@@ -22,7 +22,7 @@ async function main({
   });
   console.log("letters",letters);
 
-  for (const letter of letters) {
+  for (const letter of letters.slice(24)) {
     const _l = letter === "#"? "0": letter;
     await page.goto(`https://www.dictionary.com/list/${_l}/1`);
     await page.waitForSelector("#content > div.cs30rl9RI3fBcNDr3Hhc > ul:nth-child(3) > li:nth-child(2) > a");
