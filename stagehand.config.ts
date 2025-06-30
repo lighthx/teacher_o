@@ -35,6 +35,7 @@ const StagehandConfig: ConstructorParams = {
       width: 1024,
       height: 768,
     },
+    headless: true,
   } /* Configuration options for the local browser */,
 };
 
