@@ -25,10 +25,13 @@ async function main({
   for (const letter of letters.slice(24)) {
     const _l = letter === "#"? "0": letter;
     await page.goto(`https://www.dictionary.com/list/${_l}/1`);
-    await page.waitForSelector("#content > div.cs30rl9RI3fBcNDr3Hhc > ul:nth-child(3) > li:nth-child(2) > a");
+    await page.waitForSelector("#content > div.cs30rl9RI3fBcNDr3Hhc > ul:nth-child(3) > li:nth-child(2) > a", { timeout: 5 }).catch(() => {
+      console.log("letter",letter,"no maxPage");
+      return;
+    });
     const maxPage = await page.evaluate(() => {
       const item = document.querySelector("#content > div.cs30rl9RI3fBcNDr3Hhc > ul:nth-child(3) > li:nth-child(2) > a");
-      const maxPage = item?.getAttribute("href")?.split("/").pop();
+      const maxPage = item?.getAttribute("href")?.split("/").pop()??1;
       return Number(maxPage!);
     });
     console.log("letter",letter,"maxPage",maxPage);   
