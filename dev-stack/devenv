@@ -6,7 +6,7 @@ export PATH=$(dirname $DIR)/bin:$PATH
 
 _docker_compose() {
   pushd "$DIR" >/dev/null 2>&1 || exit
-  docker-compose --project-name ${DB_NAME} $@
+  docker compose --project-name ${DB_NAME} $@
   popd >/dev/null 2>&1 || exit
 }
 
