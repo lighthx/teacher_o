@@ -12,6 +12,6 @@
     "allowImportingTsExtensions": false,
     "noEmit": false
   },
-  "include": ["*.ts", "api", "examples/run.ts"],
+  "include": ["*.ts", "api", "examples/run.ts", "src/crawl.ts"],
   "exclude": ["node_modules", "dist"]
 }

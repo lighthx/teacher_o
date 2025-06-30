@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+normalize_arch() {
+  local arch=$1
+  if [ "$arch" = "x64" ]; then
+    echo "amd64"
+  else
+    echo "$arch"
+  fi
+}
+
+normalize_platform() {
+  local platform=$1
+  if [ "$platform" = "win32" ]; then
+    echo "windows"
+  else
+    echo "$platform"
+  fi
+}
+
+platform=$(uname -s | tr '[:upper:]' '[:lower:]')
+arch=$(uname -m)
+
+if [ "$arch" = "x86_64" ]; then
+  arch="x64"
+fi
+
+echo "$(normalize_platform "$platform")-$(normalize_arch "$arch")"

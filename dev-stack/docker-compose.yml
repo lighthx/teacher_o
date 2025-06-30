@@ -1,0 +1,32 @@
+services:
+  postgres:
+    restart: always
+    image: pgvector/pgvector:pg17
+    shm_size: 2gb
+    network_mode: host
+    command: postgres -c 'max_connections=1000' -c 'wal_level=logical' -c 'wal_log_hints=on' -p ${POSTGRES_PORT}
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${HASURA_GRAPHQL_ADMIN_SECRET}
+    volumes:
+      - ${DATA_DIR:-pgdata}:/var/lib/postgresql/data
+  hasura:
+    restart: always
+    image: hasura/graphql-engine:v2.40.2
+    network_mode: host
+    ports:
+      - ${HASURA_PORT}:${HASURA_PORT}
+    environment:
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: "postgresql://postgres:${HASURA_GRAPHQL_ADMIN_SECRET}@127.0.0.1:${POSTGRES_PORT}/${DB_NAME}"
+      DATABASE_URL: "postgresql://postgres:${HASURA_GRAPHQL_ADMIN_SECRET}@127.0.0.1:${POSTGRES_PORT}/${DB_NAME}"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_LOG_LEVEL: "info"
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "public"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: "startup, http-log, webhook-log, websocket-log, query-log"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_SERVER_PORT: ${HASURA_PORT}
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
+volumes:
+  pgdata: {}
