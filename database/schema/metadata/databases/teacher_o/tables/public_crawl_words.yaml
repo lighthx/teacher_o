@@ -1,0 +1,14 @@
+table:
+  name: crawl_words
+  schema: public
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - letter
+        - word
+        - page
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""

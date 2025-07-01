@@ -1,1 +1,2 @@
-[]
+- "!include public_crawl_words.yaml"
+- "!include public_words_detail.yaml"

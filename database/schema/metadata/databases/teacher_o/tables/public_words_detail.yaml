@@ -1,0 +1,16 @@
+table:
+  name: words_detail
+  schema: public
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - word
+        - advance_learning
+        - examples
+        - explain
+        - created_at
+        - explain_embedding
+      filter: {}
+      allow_aggregations: true
+    comment: ""
