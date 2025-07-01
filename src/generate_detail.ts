@@ -28,14 +28,14 @@ Guidelines:
   });
 
   // Generate embedding for the explanation
-  const { embedding } = await embed({
-    model: embeddingModel,
-    value: object.explain,
-  });
+//   const { embedding } = await embed({
+//     model: embeddingModel,
+//     value: object.explain,
+//   });
 
   return {
     ...object,
-    explain_embedding: embedding,
+    explain_embedding: new Array(1024).fill(0),
   };
 };
 
